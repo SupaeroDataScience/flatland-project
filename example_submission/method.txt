@@ -1,0 +1,1 @@
+This is the same as the starting 1+lambda EA but uses a smaller network (32 hidden nodes) and changes the network initialization and standard deviation.
