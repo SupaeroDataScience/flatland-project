@@ -31,7 +31,7 @@ def fitness(x, s, a, env, params):
 if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument('-e', '--env', help='environment', default='small', type=str)
-    parser.add_argument('-g', '--gens', help='number of generations', default=50, type=int)
+    parser.add_argument('-g', '--gens', help='number of generations', default=100, type=int)
     parser.add_argument('-p', '--pop', help='population size (lambda for the 1+lambda ES)', default=10, type=int)
     parser.add_argument('-s', '--seed', help='seed for evolution', default=0, type=int)
     parser.add_argument('--log', help='log file', default='evolution.log', type=str)
