@@ -4,12 +4,12 @@ from argparse import ArgumentParser
 import numpy as np
 import logging
 
-def oneplus_lambda(x, fitness, gens, lam, std=0.01):
+def oneplus_lambda(x, fitness, gens, lam, std=0.01, rng=np.random.default_rng()):
     x_best = x
     f_best = -np.Inf
     n_evals = 0
     for g in range(gens):
-        N = std*np.random.normal(size=(lam, len(x)))
+        N = rng.normal(size=(lam, len(x))) * std
         for i in range(lam):
             ind = x + N[i, :]
             f = fitness(ind)
@@ -33,6 +33,7 @@ if __name__ == '__main__':
     parser.add_argument('-e', '--env', help='environment', default='small', type=str)
     parser.add_argument('-g', '--gens', help='number of generations', default=50, type=int)
     parser.add_argument('-p', '--pop', help='population size (lambda for the 1+lambda ES)', default=10, type=int)
+    parser.add_argument('-s', '--seed', help='seed for evolution', default=0, type=int)
     parser.add_argument('--log', help='log file', default='evolution.log', type=str)
     parser.add_argument('--weights', help='filename to save policy weights', default='weights', type=str)
     args = parser.parse_args()
@@ -43,11 +44,14 @@ if __name__ == '__main__':
     env, params = get_env(args.env)
     s, a = get_state_action_size(env)
     policy = NeuroevoPolicy(s, a)
-    start = policy.get_params()
 
     # evolution
-    fit = lambda x : fitness(x, s, a, env, params)
-    x_best = oneplus_lambda(start, fit, args.gens, args.pop)
+    rng = np.random.default_rng(args.seed)
+    start = rng.normal(size=(len(policy.get_params(),)))
+
+    def fit(x):
+        return fitness(x, s, a, env, params)
+    x_best = oneplus_lambda(start, fit, args.gens, args.pop, rng=rng)
 
     # Evaluation
     policy.set_params(x_best)

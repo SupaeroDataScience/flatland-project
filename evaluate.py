@@ -57,6 +57,7 @@ def get_state_action_size(env):
 def evaluate(env, params, policy, render=False, max_steps=int(1e8)):
     n_agents = params["n_agents"]
     seed = params["seed"]
+    env._seed(seed)
     random.seed(seed)
     np.random.seed(seed)
     score = 0
