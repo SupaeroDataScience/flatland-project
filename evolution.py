@@ -51,7 +51,7 @@ if __name__ == '__main__':
     start = rng.normal(size=(len(policy.get_params(),)))
 
     def cma_strat(x_start,fitness):
-        es = cma.CMAEvolutionStrategy(x_start, 0.2, {'popsize': 10, 'maxfevals': 100}) # 0.2/10/100 pour bon score
+        es = cma.CMAEvolutionStrategy(x_start, 0.2, {'popsize': 30, 'maxfevals': 100})
         es.optimize(fitness)
         return es.result.xbest
 
