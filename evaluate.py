@@ -73,7 +73,7 @@ def evaluate(env, params, policy, render=False, max_steps=int(1e8)):
     # Build initial agent-specific observations
     for agent in env.get_agent_handles():
         if obs[agent]:
-            agent_obs[agent] = normalize_observation(obs[agent], 2, observation_radius=10)
+            agent_obs[agent] = normalize_observation(obs[agent], 2, observation_radius=50)
 
     # Run episode
     for step in range(max_steps):

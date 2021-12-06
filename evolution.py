@@ -3,8 +3,9 @@ from policy import NeuroevoPolicy
 from argparse import ArgumentParser
 import numpy as np
 import logging
+import cma
 
-def oneplus_lambda(x, fitness, gens, lam, std=0.01, rng=np.random.default_rng()):
+def oneplus_lambda(x, fitness, gens, lam, std=0.05, rng=np.random.default_rng()):
     x_best = x
     f_best = -np.Inf
     n_evals = 0
@@ -49,9 +50,19 @@ if __name__ == '__main__':
     rng = np.random.default_rng(args.seed)
     start = rng.normal(size=(len(policy.get_params(),)))
 
+    def cma_strat(x_start,fitness):
+        es = cma.CMAEvolutionStrategy(x_start, 0.2, {'popsize': 10, 'maxfevals': 100}) # 0.2/10/100 pour bon score
+        es.optimize(fitness)
+        return es.result.xbest
+
     def fit(x):
         return fitness(x, s, a, env, params)
-    x_best = oneplus_lambda(start, fit, args.gens, args.pop, rng=rng)
+
+    def fit_inv(x):
+        return -fitness(x, s, a, env, params)
+    #x_best = oneplus_lambda(start, fit, args.gens, args.pop, rng=rng)
+    
+    x_best = cma_strat(start,fit_inv)
 
     # Evaluation
     policy.set_params(x_best)

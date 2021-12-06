@@ -18,10 +18,10 @@ if __name__ == '__main__':
     print('Weights: ', policy.get_params()[:5])
 
     mean_fit = 0
-    for i in range(3):
-        params["seed"] = i
+    for i in range(15):
+        params["seed"] = i*2
         fit = evaluate(env, params, policy, render=args.render)
         mean_fit += fit
         print('Fitness: ', fit)
-    mean_fit /= 3.0
+    mean_fit /= 15.0
     print('Mean fit: ', mean_fit)
