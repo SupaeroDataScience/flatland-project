@@ -17,8 +17,8 @@ class PolicyNetwork(nn.Module):
         self.fc2 = nn.Linear(hidsize1, hidsize2)
         self.fc3 = nn.Linear(hidsize2, action_size)
         self.dropout = nn.Dropout(0.1)
-        #optimizer = torch.optim.SGD(self.parameters(), lr=0.1, momentum=0.9)
-        #optimizer.step()
+        optimizer = torch.optim.SGD(self.parameters(), lr=0.01, momentum=0.9)
+        optimizer.step()
 
     def forward(self, x):
 
