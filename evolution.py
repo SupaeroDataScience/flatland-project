@@ -99,7 +99,7 @@ if __name__ == '__main__':
         n_var = len(x_start)
         lb = np.ones(n_var)*(-10)
         ub = np.ones(n_var)*10
-        xopt, _ = pso(fitness, lb, ub, swarmsize=50, omega=0.5, phip=0.4, phig=0.4, maxiter=10, debug=True)
+        xopt, _ = pso(fitness, lb, ub, swarmsize=60, omega=0.5, phip=1, phig=1, maxiter=10, debug=True)
         return xopt
 
     def fit(x):
