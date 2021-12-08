@@ -10,14 +10,14 @@ import pandas as pd
 
 class PolicyNetwork(nn.Module):
 
-    def __init__(self, state_size, action_size, hidsize1=32, hidsize2=64):
+    def __init__(self, state_size, action_size, hidsize1=16, hidsize2=32):
         super(PolicyNetwork, self).__init__()
         self.fc1 = nn.Linear(state_size, hidsize2)
         self.fc2 = nn.Linear(hidsize2, hidsize2)
         self.fc3 = nn.Linear(hidsize2, hidsize1)
         self.fc4 = nn.Linear(hidsize1, action_size)
-        #optimizer = torch.optim.SGD(self.parameters(), lr=0.01, momentum=0.9)
-        #optimizer.step()
+        optimizer = torch.optim.SGD(self.parameters(), lr=0.01, momentum=0.9)
+        optimizer.step()
 
     def forward(self, x):
 
@@ -37,10 +37,8 @@ class NeuroevoPolicy:
 
         self.state_size = state_size
         self.action_size = action_size
-        self.hidsize = 32
         self.device = torch.device("cpu")
-        self.model = PolicyNetwork(state_size, action_size,
-                                   hidsize1=self.hidsize, hidsize2=self.hidsize*2).to(self.device)
+        self.model = PolicyNetwork(state_size, action_size).to(self.device)
         self.model = self.model.to(self.device).double()
 
     def act(self, state):

@@ -90,7 +90,7 @@ def evaluate(env, params, policy, render=False, max_steps=int(1e8)):
         # Process next observations
         for agent in env.get_agent_handles():
             if next_obs[agent]:
-                agent_obs[agent] = normalize_observation(next_obs[agent], 2, observation_radius=10)
+                agent_obs[agent] = normalize_observation(next_obs[agent], 2, observation_radius=6)
 
             score += all_rewards[agent]
 

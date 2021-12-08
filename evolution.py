@@ -99,7 +99,7 @@ if __name__ == '__main__':
         n_var = len(x_start)
         lb = np.ones(n_var)*(-10)
         ub = np.ones(n_var)*10
-        xopt, _ = pso(fitness, lb, ub, swarmsize=50, omega=0.7, phip=0.5, phig=0.5, maxiter=20, debug=True)
+        xopt, _ = pso(fitness, lb, ub, swarmsize=50, omega=0.5, phip=0.4, phig=0.4, maxiter=10, debug=True)
         return xopt
 
     def fit(x):
@@ -112,11 +112,11 @@ if __name__ == '__main__':
     
     #x_best = cma_strat(start,fit_inv)
 
-    x_best = pymoo_strat(start)
+    #x_best = pymoo_strat(start)
 
     #x_best = optunity_strat(start,fit)
 
-    #x_best = pso_start(start,fit_inv)
+    x_best = pso_start(start,fit_inv)
 
     # Evaluation
     policy.set_params(x_best)
