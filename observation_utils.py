@@ -1,6 +1,6 @@
 from typing import Tuple
 import numpy as np
-from flatland.envs.observations import TreeObsForRailEnv
+from flatland.envs.observations import TreeObsForRailEnv, LocalObsForRailEnv, GlobalObsForRailEnv
 
 def max_lt(seq, val):
     """
